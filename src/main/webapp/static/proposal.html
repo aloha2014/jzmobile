@@ -1,0 +1,536 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="css/mui.picker.min.css" rel="stylesheet" />
+		<link href="css/mui.poppicker.css" rel="stylesheet" />
+		<link href="css/mui.picker.min.css"  rel="stylesheet"/>
+	</head>
+	<style>
+		.date-picker {
+			text-align: right;
+			width: 70%;
+			display: -moz-inline-box;
+			display: inline-block;
+		}		
+		.select-picker {
+			text-align: right;
+			width: 55%;
+			display: -moz-inline-box;
+			display: inline-block;
+		}		
+		.house-switch.mui-active:before {
+			content: '是';
+		}		
+		.house-switch:before {
+			content: '否';
+		}
+		.gender-switch.mui-active:before {
+			content: '女';
+		}		
+		.gender-switch:before {
+			content: '男';
+		}
+		.form-font{
+			font-size: 0.8em;
+		}
+		.input-font input{
+			font-size: 1em;
+		}
+		.mui-table-view-cell.mui-collapse.mui-active .mui-table-view-cell>a:not(.mui-btn).mui-active{
+			padding-left: 31px;
+		}
+		.title{
+			margin: 20px 15px 10px;
+	    	color: #6d6d72;
+	    	font-size: 15px;
+		}
+		.declare {
+			list-style:none;padding-left: 0px;
+		}
+		.declare li {
+			margin-top: 15px;
+		}
+	    .select-picker{
+			width:60%;
+		}
+		.darkblue{
+			color:darkblue;
+		}
+		.badge{
+			position:relative;top:-2px;
+		}
+	</style>
+
+	<body>
+		<script src="js/mui.min.js"></script>
+		<script src="js/mui.picker.min.js"></script>
+		<script src="js/mui.poppicker.js"></script>
+		<script src="js/data.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/validation.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/mui.poppicker.js"></script>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">在线投保</h1>
+		</header>
+		<div class="mui-content">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell mui-collapse mui-active">
+					<a class="mui-navigate-right" href="#"><span class="darkblue">
+						<span class="mui-badge mui-badge-primary badge">1</span>
+						房屋标的</span></a>
+					<div class="mui-collapse-content" style="margin-bottom:2px">
+							<form class="mui-input-group form-font input-font">			
+							<li class="mui-table-view-cell ">
+								<a class="mui-navigate-right " id="city">
+									<label><b>房屋所在城市</b></label>
+									<span class="select-picker" id="cityText"></span>
+									<span class="mui-hidden" id="cityValue"></span>
+								</a>
+							</li>							
+							<div class="mui-input-row">
+								<label><b>详细地址</b></label>
+								<input id="subjectAddress" type="text" placeholder="请输入准确地址">
+							</div>
+					
+							<li class="mui-table-view-cell">
+								<a class="mui-navigate-right" id="catalog">
+									<label><b>标的分类</b></label>
+									<span class="select-picker" id="catalogText"></span>
+									<span class="mui-hidden" id="catalogValue"></span>
+								</a>
+							</li>
+							<li class="mui-table-view-cell">
+								<a class="mui-navigate-right" id="structure">
+									<label><b>建筑结构</b></label>
+									<span class="select-picker" id="structureText"></span>
+									<span class="mui-hidden" id="structureValue"></span>
+								</a>
+							</li>
+							<div class="mui-input-row">
+								<label><b>是否整修</b></label>
+								<div id="repairFlag" class="mui-switch mui-switch-blue  house-switch ">
+									<div class="mui-switch-handle"></div>
+								</div>
+							</div>	
+							<div class="mui-input-row amount">
+								<label><b>保险金额</b></label>
+								<div style="float:right;padding: 11px 15px;">万元</div>
+								<div style="margin-right:40px;">
+									<div class="mui-numbox" data-numbox-min="5" data-numbox-max="100">
+										<button class="mui-btn mui-numbox-btn-minus" type="button">-</button>
+										<input class="mui-numbox-input" type="number" placeholder="" id="amount" />
+										<button class="mui-btn mui-numbox-btn-plus" type="button">+</button>
+									</div>										
+								</div>								
+							</div>	
+							<div class="mui-input-row">
+								<label><b>保费金额</b></label>								
+								<div style="float:right;color:red;font-weight:bold;padding: 11px 15px;">
+									<span id="premium">12</span>	
+									<span >元</span>	
+								</div>								
+						    </div>
+						</form>
+					</div>
+				</li>
+				<li class="mui-table-view-cell mui-collapse ">
+					<a class="mui-navigate-right" href="#"><span class="darkblue">
+						<span class="mui-badge mui-badge-primary badge">2</span>
+						投保人信息</span></a>
+					<div class="mui-collapse-content" style="margin-bottom:2px">
+						<form class="mui-input-group form-font input-font">
+						 	  <div class="mui-input-row">
+									<label><b>姓名</b></label>
+									<input id="propName" type="text" placeholder="请填写姓名">
+							    </div>
+					        <li class="mui-table-view-cell">
+					            <a class="mui-navigate-right" id="propIdentType">
+					                <label><b>证件类型</b></label>
+					                <span class="select-picker" id="propIdentTypeText"></span>
+									<span class="mui-hidden" id="propIdentTypeValue"></span>
+					            </a>
+					        </li>
+					        <div class="mui-input-row">
+									<label><b>证件号码</b></label>
+									<input id="propIdentNo" type="text" placeholder="请填写证件号码">
+							   </div>
+					        <li class="mui-table-view-cell">
+					            <a class="mui-navigate-right" id="propBirth">
+					                <label><b>出生日期</b></label>
+					                <span class="select-picker" id="propBirthValue"></span>
+					            </a>
+					        </li>						       
+					        <div class="mui-input-row">
+								<label><b>手机号码</b></label>
+								<input id="propPhone" type="text" placeholder="请填写手机号码">
+							</div>
+					        <div class="mui-input-row">
+								<label><b>电子邮箱</b></label>
+								<input id="propEmail" type="text" placeholder="请填写电子邮箱">
+							 </div>
+					         <div class="mui-input-row">
+								<label><b>联系地址</b></label>
+								<input id="propAddress" type="text" placeholder="请填写所在街道的详细地址">
+							 </div>
+					        </form>
+					</div>
+				</li>
+				<li class="mui-table-view-cell mui-collapse ">
+					<a class="mui-navigate-right" href="#">						
+						<span class="darkblue">
+							<span class="mui-badge mui-badge-primary badge">3</span>
+						被保险人信息
+						</span>
+					</a>
+					<div class="mui-collapse-content" style="margin-bottom:2px">
+						<form class="mui-input-group form-font input-font">
+							<li class="mui-table-view-cell">
+					            <a class="mui-navigate-right" id="relation">
+					                <label><b>您与被保险人关系</b></label>
+					                <span class="select-picker" id="relationText"></span>
+					                <span class="select-picker" id="relationValue"></span>
+					            </a>
+					        </li>
+					        <div class="mui-input-row">
+								<label><b>姓名</b></label>
+								<input id="insuredName" type="text" placeholder="请输入姓名">
+							</div>
+					        <li class="mui-table-view-cell">
+					            <a class="mui-navigate-right" id="insuredIdentType">
+					                <label><b>证件类型</b></label>
+					                <span class="select-picker" id="insuredIdentTypeText"></span>
+									<span class="mui-hidden" id="insuredIdentTypeValue"></span>
+					            </a>
+					        </li>
+					        <div class="mui-input-row">
+								<label><b>证件号码</b></label>
+								<input id="insuredIdentNo" type="text" placeholder="请填写证件号码">
+							</div>
+					        <li class="mui-table-view-cell">
+					            <a class="mui-navigate-right" id="insuredBirth">
+					                 <label><b>出生日期</b></label>
+					                 <span class="select-picker" id="insuredBirthValue"></span>
+					            </a>
+					        </li>
+					        <div class="mui-input-row">
+								<label><b>性别</b></label>
+								<div id="gender" class="mui-switch mui-switch-blue gender-switch ">
+									<div class="mui-switch-handle"></div>
+								</div>
+							</div>	
+				        	<div class="mui-input-row">
+								<label><b>手机号码</b></label>
+								<input id="insuredPhone" type="text" placeholder="请填写手机号码">
+						    </div>
+					        <div class="mui-input-row">
+								<label><b>电子邮箱</b></label>
+								<input id="insuredEmail" type="text" placeholder="请填写电子邮箱">
+							</div>
+					       <div class="mui-input-row">
+								<label><b>联系地址</b></label>
+								<input id="insuredAddress" type="text" placeholder="请填写所在街道的详细地址">
+						   </div>
+						   <div class="mui-input-row">
+								<label><b>投保受益人</b></label>
+								<input type="text" placeholder="请填写所在街道的详细地址" value="法定继承人" disabled="disabled">						
+						   </div>
+						   
+						 </form>
+					</div>
+				</li>				
+			</ul>
+			<div class="title">		
+				<span><b>投保声明</b></span>
+				<ul class="declare">
+					<li class="declare"><span>本人已经仔细阅读了<b style="font-weight: normal;color:#149cd5">《城乡居民住房地震巨灾保险条款（试用版）》</b>，并对其中免除保险人责任的条款（包括但不限于责任免除、投保人被保险人义务、赔偿处理、其他事项等），以及本保险合同中付费约定和特别约定的内容已充分理解并接受上述内容，自愿投保本保险。</span></li>
+					<li class="declare" >本保险仅提供电子保单 （电子保单具有纸质保单相 同的法律效力，理赔时只需提供电子保单号和身份证件），若需保单及发票，请自行前往当地人保机构打印。</li>
+				</ul>
+			</div>
+			<div class="mui-input-row mui-checkbox mui-left">
+				<label>我已经认真阅读以上内容并同意</label>
+				<input id="checkbox" value="agree" type="checkbox" >
+			</div>
+			<div style="padding: 1rem; text-align: center;">
+				<button type="button" id="proposalConfirm" class="mui-btn mui-btn-red mui-btn-grey" style="width:200px;height:40px">确认投保</button>
+			</div>
+			<div style="padding: 1rem 0rem 0.5rem 0rem; text-align: center;font-size: 0.7em;">@2017 上海保险交易所 <span style="color:blue;">隐私权政策</span></span>
+		</div>
+		
+
+		<script type="text/javascript">
+			mui.init();
+			var autoFill = function(element,value,isInput) {				
+				if(document.getElementById('relationValue').innerHTML == '0') {
+					if(isNaN(element)){
+						document.getElementById("insuredName").value = document.getElementById("propName").value;
+						document.getElementById("insuredIdentTypeText").innerHTML = document.getElementById("propIdentTypeText").innerHTML;
+						document.getElementById("insuredIdentTypeValue").innerHTML = document.getElementById("propIdentTypeValue").innerHTML;
+						document.getElementById("insuredIdentNo").value = document.getElementById("propIdentNo").value;
+						document.getElementById("insuredBirthValue").innerHTML = document.getElementById("propBirthValue").innerHTML;
+						document.getElementById("insuredPhone").value = document.getElementById("propPhone").value;
+						document.getElementById("insuredEmail").value = document.getElementById("propEmail").value;
+						document.getElementById("insuredAddress").value = document.getElementById("propAddress").value;
+					}
+					else{
+						var tmp=document.getElementById('insured'+element.substring(4));
+						if(isInput){
+							tmp.value=value;
+						}else{
+							tmp.innerHTML=value;
+						}
+					}
+				}
+			}
+			var isNull=function(data){
+				if (typeof(data) == "undefined"||data==null||data==''){ 
+					return true;
+				}
+				else{
+					return false;
+				}
+			}
+			
+			var submitProposal=function(){			
+				var submitObj={};
+				submitObj.cityValue=document.getElementById("cityValue").innerHTML;
+				submitObj.subjectAddress=document.getElementById("subjectAddress").value;
+				submitObj.catalogValue=document.getElementById("catalogValue").innerHTML;
+				submitObj.structureValue=document.getElementById("structureValue").innerHTML;
+				submitObj.repairFlag=mui('#gender')[0].classList.contains('mui-active')?'1':'0';
+				submitObj.amount=document.getElementById("amount").value;
+				if (isNull(submitObj.cityValue)){
+					mui.toast('请选择房屋所在城市');
+					return;
+				}
+				if (isNull(submitObj.subjectAddress)){
+					mui.toast('请填写房屋地址信息');
+					return;
+				}
+				if (isNull(submitObj.catalogValue)){
+					mui.toast('请选择标的分类');
+					return;
+				}
+				if (isNull(submitObj.structureValue)){
+					mui.toast('请选择建筑结构');
+					return;
+				}
+				if (isNull(submitObj.amount)){
+					mui.toast('请填写保险金额');
+					return;
+				}
+				submitObj.propName=document.getElementById("propName").value;
+				submitObj.propIdentTypeValue=document.getElementById("propIdentTypeValue").innerHTML;
+				submitObj.propIdentNo=document.getElementById("propIdentNo").value;
+				submitObj.propBirthValue=document.getElementById("propBirthValue").innerHTML;
+				submitObj.propPhone=document.getElementById("propPhone").value ;
+				submitObj.propEmail=document.getElementById("propEmail").value;
+				submitObj.propAddress=document.getElementById("propAddress").value;		
+				if (isNull(submitObj.propName)){
+					mui.toast('请填写投保人姓名');
+					return;
+				}
+				if (isNull(submitObj.propIdentTypeValue)){
+					mui.toast('请填写投保人证件类型');
+					return;
+				}
+				if (isNull(submitObj.propIdentNo)){
+					mui.toast('请填写投保人证件号码');
+					return;
+				}
+				if(submitObj.propIdentTypeValue=='0'&&IdentityCodeValid(submitObj.propIdentNo)==false){
+					mui.toast('请填写正确的投保人身份证号码');
+					return;
+				}
+				if (isNull(submitObj.propBirthValue)){
+					mui.toast('请填写投保人出生日期');
+					return;
+				}
+				if (isNull(submitObj.propPhone)){
+					mui.toast('请填写投保人手机号码');
+					return;
+				}		
+				if(phoneNoValid(submitObj.propPhone)==false){
+					mui.toast('请填写正确的投保人手机号码');
+					return;
+				}
+				if(!isNull(submitObj.propEmail)&&emailValid(submitObj.propEmail)){
+					mui.toast('请填写正确的被保险人邮箱');
+					return;
+				}
+				submitObj.insuredName=document.getElementById("insuredName").value;
+				submitObj.insuredIdentTypeValue=document.getElementById("insuredIdentTypeValue").innerHTML;
+				submitObj.insuredIdentNo=document.getElementById("insuredIdentNo").value;
+				submitObj.insuredBirthValue=document.getElementById("insuredBirthValue").innerHTML;
+				submitObj.insuredPhone=document.getElementById("insuredPhone").value ;
+				submitObj.insuredEmail=document.getElementById("insuredEmail").value;
+				submitObj.insuredAddress=document.getElementById("insuredAddress").value;				
+				submitObj.insuredGender=mui('#gender')[0].classList.contains('mui-active')?'1':'0';
+				if (isNull(submitObj.insuredName)){
+					mui.toast('请填写被保险人姓名');
+					return;
+				}
+				if (isNull(submitObj.insuredIdentTypeValue)){
+					mui.toast('请填写被保险人证件类型');
+					return;
+				}
+				if (isNull(submitObj.insuredIdentNo)){
+					mui.toast('请填写被保险人证件号码');
+					return;
+				}
+				if(submitObj.insuredIdentTypeValue=='0'&&IdentityCodeValid(submitObj.insuredIdentNo)==false){
+					mui.toast('请填写正确的被保险人身份证号码');
+					return;
+				}				
+				if (isNull(submitObj.insuredBirthValue)){
+					mui.toast('请填写被保险人出生日期');
+					return;
+				}
+				if (isNull(submitObj.insuredPhone)){
+					mui.toast('请填写被保险人手机号码');
+					return;
+				}
+				if(phoneNoValid(submitObj.insuredPhone)==false){
+					mui.toast('请填写正确的被保险人手机号码');
+					return;
+				}
+				if(!isNull(submitObj.insuredEmail)&&emailValid(submitObj.insuredEmail)){
+					mui.toast('请填写正确的被保险人邮箱');
+					return;
+				}
+				//mui.alert('已成功提交投保单，将进入在线支付！');
+				mui.ajax('http://192.168.12.105:8080/jzmobile/wechat/proposalSubmit',{
+					data:submitObj,
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					headers:{'Content-Type':'application/json'},	              
+					success:function(data){
+						mui.alert(data.key);
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						mui.alert('已成功提交投保单，将进入在线支付！');
+						console.log(type);
+					}
+				});
+			}
+			mui.ready(function(){	
+				var cityPicker=new mui.PopPicker({
+						layer: 3
+				});
+				cityPicker.setData(cityData3);
+				document.getElementById("city").addEventListener('tap', function(event) {
+						cityPicker.show(function(items) {
+							document.getElementById("cityValue").innerText = (items[2] || {}).value;
+							document.getElementById("cityText").innerText = 
+							(items[0] || {}).text + " " + (items[1] || {}).text + " " + (items[2] || {}).text;
+						});
+					}, false);				
+				var catalogPicker=new mui.PopPicker();
+				catalogPicker.setData(catalogData);
+				document.getElementById("catalog").addEventListener('tap', function(event) {
+					catalogPicker.show(function(items) {
+						document.getElementById("catalogValue").innerText = items[0].value;
+						document.getElementById("catalogText").innerText = items[0].text;
+					});
+				}, false);
+				var structurePicker=new mui.PopPicker();
+				structurePicker.setData(structureData);
+				document.getElementById("structure").addEventListener('tap', function(event) {
+					structurePicker.show(function(items) {
+						document.getElementById("structureValue").innerText = items[0].value;
+						document.getElementById("structureText").innerText = items[0].text;
+					});
+				}, false);
+				document.getElementById("amount").addEventListener('change', function(event) {
+					document.getElementById("premium").innerText =parseInt(2.4*document.getElementById("amount").value);
+				}, false);
+				var identityTypePicker=new mui.PopPicker();
+				identityTypePicker.setData(identityTypeData);
+				document.getElementById("propIdentType").addEventListener('tap', function(event) {
+					identityTypePicker.show(function(items) {
+						document.getElementById("propIdentTypeValue").innerText = items[0].value;
+						document.getElementById("propIdentTypeText").innerText = items[0].text;
+						autoFill('propIdentTypeValue',items[0].value,false);
+						autoFill('propIdentTypeText',items[0].text,false);
+					});
+				}, false);
+				document.getElementById("propBirth").addEventListener('tap', function(event) {
+					var datePicker=new mui.DtPicker({
+						"value":"1980-01-01",
+						"type":"date",
+						"beginYear":1950,
+						"endYear":2000}
+					);
+					datePicker.show(function(rs){
+						document.getElementById("propBirthValue").innerText =rs.text;				
+						datePicker.dispose();
+						autoFill('propBirthValue',rs.text,false);
+					})
+				}, false);
+				var relationPicker=new mui.PopPicker();
+				relationPicker.setData(relationData);
+				relationPicker.pickers[0].setSelectedIndex(0, 200,function(){				
+					document.getElementById("relationValue").innerText=relationData[0].value;
+					document.getElementById("relationText").innerText = relationData[0].text;
+				});
+				document.getElementById("relation").addEventListener('tap', function(event) {
+					relationPicker.show(function(items) {
+						document.getElementById("relationValue").innerText = items[0].value;
+						document.getElementById("relationText").innerText = items[0].text;
+						autoFill();
+					});
+				}, false);
+				document.getElementById("insuredIdentType").addEventListener('tap', function(event) {
+					identityTypePicker.show(function(items) {
+						document.getElementById("insuredIdentTypeValue").innerText = items[0].value;
+						document.getElementById("insuredIdentTypeText").innerText = items[0].text;						
+					});
+				}, false);
+				document.getElementById("insuredBirth").addEventListener('tap', function(event) {
+					var datePicker=new mui.DtPicker({
+						"value":"1980-01-01",
+						"type":"date",
+						"beginYear":1950,
+						"endYear":2017}
+					);
+					datePicker.show(function(rs){
+						document.getElementById("insuredBirthValue").innerText =rs.text;				
+						datePicker.dispose();
+					})
+				}, false);	
+				document.getElementById("checkbox").addEventListener('change', function() {
+					var value = this.checked?'mui-btn mui-btn-red mui-btn-red':'mui-btn mui-btn-red mui-btn-grey';
+					mui('#proposalConfirm')[0].className=value;
+				});
+				document.getElementById("propName").addEventListener('change',function(event){
+					autoFill('propName',document.getElementById("propName").value,true);
+				});
+				document.getElementById("propIdentNo").addEventListener('change',function(event){
+					autoFill('propIdentNo',document.getElementById("propIdentNo").value,true);
+				});
+				document.getElementById("propPhone").addEventListener('change',function(event){
+					autoFill('propPhone',document.getElementById("propPhone").value,true);
+				});
+				document.getElementById("propEmail").addEventListener('change',function(event){
+					autoFill('propEmail',document.getElementById("propEmail").value,true);
+				});
+				document.getElementById("propAddress").addEventListener('change',function(event){
+					autoFill('propAddress',document.getElementById("propAddress").value,true);
+				});
+				document.getElementById("proposalConfirm").addEventListener('tap', function(event) {
+					if(document.getElementById('checkbox').checked){
+						submitProposal();
+					}					
+				}, false);	
+				
+			}
+			)
+	</script>
+	</body>
+
+</html>

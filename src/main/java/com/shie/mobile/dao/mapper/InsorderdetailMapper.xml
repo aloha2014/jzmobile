@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shie.mobile.dao.InsorderdetailMapper">
+  <resultMap id="BaseResultMap" type="com.shie.mobile.entity.Insorderdetail">
+    <id column="insorderdetail_id" jdbcType="INTEGER" property="insorderdetailId" />
+    <result column="insorder_id" jdbcType="INTEGER" property="insorderId" />
+    <result column="insurantName" jdbcType="VARCHAR" property="insurantname" />
+    <result column="insurantCertiType" jdbcType="VARCHAR" property="insurantcertitype" />
+    <result column="insurantCertiNo" jdbcType="VARCHAR" property="insurantcertino" />
+    <result column="insurantSex" jdbcType="VARCHAR" property="insurantsex" />
+    <result column="insurantMobile" jdbcType="VARCHAR" property="insurantmobile" />
+    <result column="insurantEmail" jdbcType="VARCHAR" property="insurantemail" />
+    <result column="insurantAddr" jdbcType="VARCHAR" property="insurantaddr" />
+    <result column="provinceCode" jdbcType="VARCHAR" property="provincecode" />
+    <result column="cityCode" jdbcType="VARCHAR" property="citycode" />
+    <result column="districtCode" jdbcType="VARCHAR" property="districtcode" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="residenceType" jdbcType="VARCHAR" property="residencetype" />
+    <result column="constructionType" jdbcType="VARCHAR" property="constructiontype" />
+    <result column="constructionStructure" jdbcType="VARCHAR" property="constructionstructure" />
+    <result column="isRefit" jdbcType="VARCHAR" property="isrefit" />
+    <result column="clauseCode" jdbcType="VARCHAR" property="clausecode" />
+    <result column="premium" jdbcType="DECIMAL" property="premium" />
+    <result column="sumAmount" jdbcType="DECIMAL" property="sumamount" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    insorderdetail_id, insorder_id, insurantName, insurantCertiType, insurantCertiNo, 
+    insurantSex, insurantMobile, insurantEmail, insurantAddr, provinceCode, cityCode, 
+    districtCode, address, residenceType, constructionType, constructionStructure, isRefit, 
+    clauseCode, premium, sumAmount
+  </sql>
+  <select id="selectByExample" parameterType="com.shie.mobile.entity.InsorderdetailExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from insorderdetail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from insorderdetail
+    where insorderdetail_id = #{insorderdetailId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from insorderdetail
+    where insorderdetail_id = #{insorderdetailId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.shie.mobile.entity.Insorderdetail">
+    <selectKey keyProperty="insorderdetailId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into insorderdetail (insorder_id, insurantName, insurantCertiType, 
+      insurantCertiNo, insurantSex, insurantMobile, 
+      insurantEmail, insurantAddr, provinceCode, 
+      cityCode, districtCode, address, 
+      residenceType, constructionType, constructionStructure, 
+      isRefit, clauseCode, premium, 
+      sumAmount)
+    values (#{insorderId,jdbcType=INTEGER}, #{insurantname,jdbcType=VARCHAR}, #{insurantcertitype,jdbcType=VARCHAR}, 
+      #{insurantcertino,jdbcType=VARCHAR}, #{insurantsex,jdbcType=VARCHAR}, #{insurantmobile,jdbcType=VARCHAR}, 
+      #{insurantemail,jdbcType=VARCHAR}, #{insurantaddr,jdbcType=VARCHAR}, #{provincecode,jdbcType=VARCHAR}, 
+      #{citycode,jdbcType=VARCHAR}, #{districtcode,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{residencetype,jdbcType=VARCHAR}, #{constructiontype,jdbcType=VARCHAR}, #{constructionstructure,jdbcType=VARCHAR}, 
+      #{isrefit,jdbcType=VARCHAR}, #{clausecode,jdbcType=VARCHAR}, #{premium,jdbcType=DECIMAL}, 
+      #{sumamount,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shie.mobile.entity.Insorderdetail">
+    <selectKey keyProperty="insorderdetailId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into insorderdetail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="insorderId != null">
+        insorder_id,
+      </if>
+      <if test="insurantname != null">
+        insurantName,
+      </if>
+      <if test="insurantcertitype != null">
+        insurantCertiType,
+      </if>
+      <if test="insurantcertino != null">
+        insurantCertiNo,
+      </if>
+      <if test="insurantsex != null">
+        insurantSex,
+      </if>
+      <if test="insurantmobile != null">
+        insurantMobile,
+      </if>
+      <if test="insurantemail != null">
+        insurantEmail,
+      </if>
+      <if test="insurantaddr != null">
+        insurantAddr,
+      </if>
+      <if test="provincecode != null">
+        provinceCode,
+      </if>
+      <if test="citycode != null">
+        cityCode,
+      </if>
+      <if test="districtcode != null">
+        districtCode,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="residencetype != null">
+        residenceType,
+      </if>
+      <if test="constructiontype != null">
+        constructionType,
+      </if>
+      <if test="constructionstructure != null">
+        constructionStructure,
+      </if>
+      <if test="isrefit != null">
+        isRefit,
+      </if>
+      <if test="clausecode != null">
+        clauseCode,
+      </if>
+      <if test="premium != null">
+        premium,
+      </if>
+      <if test="sumamount != null">
+        sumAmount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="insorderId != null">
+        #{insorderId,jdbcType=INTEGER},
+      </if>
+      <if test="insurantname != null">
+        #{insurantname,jdbcType=VARCHAR},
+      </if>
+      <if test="insurantcertitype != null">
+        #{insurantcertitype,jdbcType=VARCHAR},
+      </if>
+      <if test="insurantcertino != null">
+        #{insurantcertino,jdbcType=VARCHAR},
+      </if>
+      <if test="insurantsex != null">
+        #{insurantsex,jdbcType=VARCHAR},
+      </if>
+      <if test="insurantmobile != null">
+        #{insurantmobile,jdbcType=VARCHAR},
+      </if>
+      <if test="insurantemail != null">
+        #{insurantemail,jdbcType=VARCHAR},
+      </if>
+      <if test="insurantaddr != null">
+        #{insurantaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="provincecode != null">
+        #{provincecode,jdbcType=VARCHAR},
+      </if>
+      <if test="citycode != null">
+        #{citycode,jdbcType=VARCHAR},
+      </if>
+      <if test="districtcode != null">
+        #{districtcode,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="residencetype != null">
+        #{residencetype,jdbcType=VARCHAR},
+      </if>
+      <if test="constructiontype != null">
+        #{constructiontype,jdbcType=VARCHAR},
+      </if>
+      <if test="constructionstructure != null">
+        #{constructionstructure,jdbcType=VARCHAR},
+      </if>
+      <if test="isrefit != null">
+        #{isrefit,jdbcType=VARCHAR},
+      </if>
+      <if test="clausecode != null">
+        #{clausecode,jdbcType=VARCHAR},
+      </if>
+      <if test="premium != null">
+        #{premium,jdbcType=DECIMAL},
+      </if>
+      <if test="sumamount != null">
+        #{sumamount,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shie.mobile.entity.Insorderdetail">
+    update insorderdetail
+    <set>
+      <if test="insorderId != null">
+        insorder_id = #{insorderId,jdbcType=INTEGER},
+      </if>
+      <if test="insurantname != null">
+        insurantName = #{insurantname,jdbcType=VARCHAR},
+      </if>
+      <if test="insurantcertitype != null">
+        insurantCertiType = #{insurantcertitype,jdbcType=VARCHAR},
+      </if>
+      <if test="insurantcertino != null">
+        insurantCertiNo = #{insurantcertino,jdbcType=VARCHAR},
+      </if>
+      <if test="insurantsex != null">
+        insurantSex = #{insurantsex,jdbcType=VARCHAR},
+      </if>
+      <if test="insurantmobile != null">
+        insurantMobile = #{insurantmobile,jdbcType=VARCHAR},
+      </if>
+      <if test="insurantemail != null">
+        insurantEmail = #{insurantemail,jdbcType=VARCHAR},
+      </if>
+      <if test="insurantaddr != null">
+        insurantAddr = #{insurantaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="provincecode != null">
+        provinceCode = #{provincecode,jdbcType=VARCHAR},
+      </if>
+      <if test="citycode != null">
+        cityCode = #{citycode,jdbcType=VARCHAR},
+      </if>
+      <if test="districtcode != null">
+        districtCode = #{districtcode,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="residencetype != null">
+        residenceType = #{residencetype,jdbcType=VARCHAR},
+      </if>
+      <if test="constructiontype != null">
+        constructionType = #{constructiontype,jdbcType=VARCHAR},
+      </if>
+      <if test="constructionstructure != null">
+        constructionStructure = #{constructionstructure,jdbcType=VARCHAR},
+      </if>
+      <if test="isrefit != null">
+        isRefit = #{isrefit,jdbcType=VARCHAR},
+      </if>
+      <if test="clausecode != null">
+        clauseCode = #{clausecode,jdbcType=VARCHAR},
+      </if>
+      <if test="premium != null">
+        premium = #{premium,jdbcType=DECIMAL},
+      </if>
+      <if test="sumamount != null">
+        sumAmount = #{sumamount,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where insorderdetail_id = #{insorderdetailId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shie.mobile.entity.Insorderdetail">
+    update insorderdetail
+    set insorder_id = #{insorderId,jdbcType=INTEGER},
+      insurantName = #{insurantname,jdbcType=VARCHAR},
+      insurantCertiType = #{insurantcertitype,jdbcType=VARCHAR},
+      insurantCertiNo = #{insurantcertino,jdbcType=VARCHAR},
+      insurantSex = #{insurantsex,jdbcType=VARCHAR},
+      insurantMobile = #{insurantmobile,jdbcType=VARCHAR},
+      insurantEmail = #{insurantemail,jdbcType=VARCHAR},
+      insurantAddr = #{insurantaddr,jdbcType=VARCHAR},
+      provinceCode = #{provincecode,jdbcType=VARCHAR},
+      cityCode = #{citycode,jdbcType=VARCHAR},
+      districtCode = #{districtcode,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      residenceType = #{residencetype,jdbcType=VARCHAR},
+      constructionType = #{constructiontype,jdbcType=VARCHAR},
+      constructionStructure = #{constructionstructure,jdbcType=VARCHAR},
+      isRefit = #{isrefit,jdbcType=VARCHAR},
+      clauseCode = #{clausecode,jdbcType=VARCHAR},
+      premium = #{premium,jdbcType=DECIMAL},
+      sumAmount = #{sumamount,jdbcType=DECIMAL}
+    where insorderdetail_id = #{insorderdetailId,jdbcType=INTEGER}
+  </update>
+</mapper>

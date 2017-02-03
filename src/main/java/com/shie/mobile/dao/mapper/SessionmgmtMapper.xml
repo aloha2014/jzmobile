@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shie.mobile.dao.SessionmgmtMapper">
+  <resultMap id="BaseResultMap" type="com.shie.mobile.entity.Sessionmgmt">
+    <id column="sessionmgmt_id" jdbcType="INTEGER" property="sessionmgmtId" />
+    <result column="session_id" jdbcType="VARCHAR" property="sessionId" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="ipAddress" jdbcType="VARCHAR" property="ipaddress" />
+    <result column="mobileNo" jdbcType="VARCHAR" property="mobileno" />
+    <result column="verficode" jdbcType="VARCHAR" property="verficode" />
+    <result column="insorder_id" jdbcType="INTEGER" property="insorderId" />
+    <result column="provinceComCode" jdbcType="VARCHAR" property="provincecomcode" />
+    <result column="branchComCode" jdbcType="VARCHAR" property="branchcomcode" />
+    <result column="businessComCode" jdbcType="VARCHAR" property="businesscomcode" />
+    <result column="agentCode" jdbcType="VARCHAR" property="agentcode" />
+    <result column="status" jdbcType="CHAR" property="status" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    sessionmgmt_id, session_id, createtime, updatetime, ipAddress, mobileNo, verficode, 
+    insorder_id, provinceComCode, branchComCode, businessComCode, agentCode, status
+  </sql>
+  <select id="selectByExample" parameterType="com.shie.mobile.entity.SessionmgmtExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from sessionmgmt
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sessionmgmt
+    where sessionmgmt_id = #{sessionmgmtId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sessionmgmt
+    where sessionmgmt_id = #{sessionmgmtId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.shie.mobile.entity.Sessionmgmt">
+    <selectKey keyProperty="sessionmgmtId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sessionmgmt (session_id, createtime, updatetime, 
+      ipAddress, mobileNo, verficode, 
+      insorder_id, provinceComCode, branchComCode, 
+      businessComCode, agentCode, status
+      )
+    values (#{sessionId,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}, 
+      #{ipaddress,jdbcType=VARCHAR}, #{mobileno,jdbcType=VARCHAR}, #{verficode,jdbcType=VARCHAR}, 
+      #{insorderId,jdbcType=INTEGER}, #{provincecomcode,jdbcType=VARCHAR}, #{branchcomcode,jdbcType=VARCHAR}, 
+      #{businesscomcode,jdbcType=VARCHAR}, #{agentcode,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.shie.mobile.entity.Sessionmgmt">
+    <selectKey keyProperty="sessionmgmtId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sessionmgmt
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sessionId != null">
+        session_id,
+      </if>
+      <if test="createtime != null">
+        createtime,
+      </if>
+      <if test="updatetime != null">
+        updatetime,
+      </if>
+      <if test="ipaddress != null">
+        ipAddress,
+      </if>
+      <if test="mobileno != null">
+        mobileNo,
+      </if>
+      <if test="verficode != null">
+        verficode,
+      </if>
+      <if test="insorderId != null">
+        insorder_id,
+      </if>
+      <if test="provincecomcode != null">
+        provinceComCode,
+      </if>
+      <if test="branchcomcode != null">
+        branchComCode,
+      </if>
+      <if test="businesscomcode != null">
+        businessComCode,
+      </if>
+      <if test="agentcode != null">
+        agentCode,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sessionId != null">
+        #{sessionId,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ipaddress != null">
+        #{ipaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="mobileno != null">
+        #{mobileno,jdbcType=VARCHAR},
+      </if>
+      <if test="verficode != null">
+        #{verficode,jdbcType=VARCHAR},
+      </if>
+      <if test="insorderId != null">
+        #{insorderId,jdbcType=INTEGER},
+      </if>
+      <if test="provincecomcode != null">
+        #{provincecomcode,jdbcType=VARCHAR},
+      </if>
+      <if test="branchcomcode != null">
+        #{branchcomcode,jdbcType=VARCHAR},
+      </if>
+      <if test="businesscomcode != null">
+        #{businesscomcode,jdbcType=VARCHAR},
+      </if>
+      <if test="agentcode != null">
+        #{agentcode,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shie.mobile.entity.Sessionmgmt">
+    update sessionmgmt
+    <set>
+      <if test="sessionId != null">
+        session_id = #{sessionId,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ipaddress != null">
+        ipAddress = #{ipaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="mobileno != null">
+        mobileNo = #{mobileno,jdbcType=VARCHAR},
+      </if>
+      <if test="verficode != null">
+        verficode = #{verficode,jdbcType=VARCHAR},
+      </if>
+      <if test="insorderId != null">
+        insorder_id = #{insorderId,jdbcType=INTEGER},
+      </if>
+      <if test="provincecomcode != null">
+        provinceComCode = #{provincecomcode,jdbcType=VARCHAR},
+      </if>
+      <if test="branchcomcode != null">
+        branchComCode = #{branchcomcode,jdbcType=VARCHAR},
+      </if>
+      <if test="businesscomcode != null">
+        businessComCode = #{businesscomcode,jdbcType=VARCHAR},
+      </if>
+      <if test="agentcode != null">
+        agentCode = #{agentcode,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=CHAR},
+      </if>
+    </set>
+    where sessionmgmt_id = #{sessionmgmtId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shie.mobile.entity.Sessionmgmt">
+    update sessionmgmt
+    set session_id = #{sessionId,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      ipAddress = #{ipaddress,jdbcType=VARCHAR},
+      mobileNo = #{mobileno,jdbcType=VARCHAR},
+      verficode = #{verficode,jdbcType=VARCHAR},
+      insorder_id = #{insorderId,jdbcType=INTEGER},
+      provinceComCode = #{provincecomcode,jdbcType=VARCHAR},
+      branchComCode = #{branchcomcode,jdbcType=VARCHAR},
+      businessComCode = #{businesscomcode,jdbcType=VARCHAR},
+      agentCode = #{agentcode,jdbcType=VARCHAR},
+      status = #{status,jdbcType=CHAR}
+    where sessionmgmt_id = #{sessionmgmtId,jdbcType=INTEGER}
+  </update>
+</mapper>

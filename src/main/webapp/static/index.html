@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<meta name="viewport" content="width=device-width" />
+		<link rel="stylesheet" href="css/mui.min.css" />
+	</head>
+	<style>
+	.page_title{
+		    color: #333;
+		    font-size: 1.55rem;
+		    line-height: 2.3rem;
+		    padding: 0rem 0.5rem;
+    		overflow: hidden;    	
+	}
+	.des_p{
+		    text-indent: 2.3rem;
+		    padding: .5rem 1rem 0;
+		    border-top: 1px solid rgba(211,211,211,1);
+		    line-height: 2rem;
+	}
+	.problem span {
+	    font-size: 1.1rem;
+	    font-weight: bold;
+	}
+	.problem b{
+		color: darkblue;
+		font-size: 1.1rem;
+  		margin-right: 1rem;
+	}
+	</style>
+	<body >		
+		<script type="text/javascript" src="js/mui.min.js" ></script>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">城乡居民住宅地震巨灾保险</h1>
+		</header>
+		<nav class="mui-bar mui-bar-tab">
+			<div style="padding: 0.5rem 0.5rem; text-align: center;">
+				<button type="button" id="proposalSubmit" class="mui-btn mui-btn-red " style="width:200px;height:40px">立即投保</button>
+			</div>
+			<div style="padding: 1rem 0rem 0.5rem 0rem; text-align: center;font-size: 0.7em;">@2017 上海保险交易所 <span style="color:blue;">隐私权政策</span></span>
+		</nav>
+		<div class="mui-content">
+			<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(img/banner.jpg)"></div>
+			<div id="segmentedControls" class="mui-segmented-control">
+	    		<a class="mui-control-item mui-active" href="#productItem">
+	    			产品说明    			
+	    		</a>
+	    		<a class="mui-control-item " href="#proposalItem">
+	    			投保须知    			
+	    		</a>
+	    		<a class="mui-control-item" href="#problemItem">
+	    			常见问题   			
+	    		</a>    		
+			</div>
+			<div class="mui-content-padded">
+				<div id="productItem" class="mui-control-content mui-active">
+					<div style="">
+               		    <img src="img/table_img.png" width="100%" alt=""/>
+						<p style="margin-top:0.5rem;">本产品为城乡居民住宅及其室内附属
+							设施提供地震巨灾保险；具体保险责任详见适用保险条款内容。
+							城镇住宅最低保险金额是50,000元；农村住宅最低保险金额是20,000元。
+							同一个保险标的，钢结构及钢混、混合结构保险金额上限为100万元，
+							砖木结构保险金额上限为10万元，其它结构保险金额上限为6万元，超过部分无效。
+						</p>
+					</div>		
+				</div>
+				<div id="proposalItem" class="mui-control-content">
+					<div class="hide" style="display: block;">
+	                    <p><span>1.</span>城镇住宅最低保险金额是50,000元；农村住宅最低保险金额是20,000元。</p>
+	        			<p><span>2.</span>同一个保险标的，钢结构及钢混、混合结构保险金额上限为100万元；砖木结构保险金额上限为10万元；其它结构保险金额上限为6万元，超过部分无效。</p>
+	        			<p><span>3.</span>本保险不赔偿房屋破坏等级为Ⅰ级（基本完好）或Ⅱ级（轻微破坏）的损失(根据《国家建(构)筑物地震破坏等级划分标准GB/T 24335－2009》)。</p>
+	        			<p><span>4.</span>投保人不得就同一保险标的向不同保险人投保城乡居民住宅地震巨灾保险。</p>
+	        			<p><span>5.</span>投保住宅的所有权如有变更，应当在所有权变更90天内书面通知保险人并办理批改手续。</p>
+	        		</div>				
+				</div>
+				<div id="problemItem" class="mui-control-content">
+					<div class="problem" style="display: block;">
+	                    <h2><b>●</b><span>哪些房屋不属于保险标的范围？</span></h2>
+	                    <p><span>1.</span>政府有关部门征用、占用的房屋；</p>
+	                    <p><span>2.</span>专门用于从事工商业生产、经营活动的房屋；</p>
+	                    <p><span>3.</span>在建房屋；</p>
+	                    <p><span>4.</span>违章建筑、危险建筑、简易房屋；</p>
+	                    <p><span>5.</span>正处于紧急危险状态下的房屋；</p>
+	                    <p><span>6.</span>用芦席、稻草、油毛毡、麦秆、芦苇、竹竿、帆布、塑料布、纸板等为外墙结构的房屋。</p>
+	                    <h2><b>●</b><span>如果被保险人对其住宅需要更高保险保障，怎么办？</span></h2>
+	                    <p>本产品的同一个保险标的住宅的保险金额最高不得超过100万元，超过部分无效。如果被保险人住宅价值比较高，并希望有更高的保险保障，则被保险人可以向保险公司另外申请投保其它地震保险产品。</p>
+	                    <h2><b>●</b><span>破坏性地震导致房屋轻微破坏是否赔偿？</span></h2>
+	                    <p>本产品仅对保险标的破坏等级属于Ⅲ级（中等破坏）、Ⅳ级（严重破坏）及Ⅴ级（毁坏）时按保险合同约定负责赔偿。 房屋破坏等级为Ⅰ级（基本完好）或Ⅱ级（轻微破坏）属于责任免除范围。详见条款内容。</p>
+	                </div>				
+				</div>
+			</div>
+			<div style="padding: 0rem 0.5rem;margin-bottom: 1rem; text-align:right;">
+				<button type="button" class="mui-btn mui-btn-link" id="info" style="width:120px;padding-bottom:50px;">查看条款	</button>
+			</div>
+		</div>
+		<script>
+			mui.init({
+				  preloadPages:[
+				    {
+				      url:'proposal.html',
+				      id:'proposal'
+				    }
+				  ]
+			});		
+			document.getElementById('info').addEventListener('tap',function() {
+				//打开关于页面
+				mui.openWindow({
+					url: 'info.html',
+					id: 'info'
+				});
+			}); 		
+			document.getElementById('proposalSubmit').addEventListener('tap',function() {
+				//打开关于页面
+				mui.openWindow({
+					url: 'proposal.html',
+					id: 'proposal'
+				});
+			}); 	
+		</script>
+		
+	</body>
+</html>

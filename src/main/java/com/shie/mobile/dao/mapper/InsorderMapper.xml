@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shie.mobile.dao.InsorderMapper">
+  <resultMap id="BaseResultMap" type="com.shie.mobile.entity.Insorder">
+    <id column="insorder_id" jdbcType="INTEGER" property="insorderId" />
+    <result column="session_id" jdbcType="VARCHAR" property="sessionId" />
+    <result column="productCode" jdbcType="VARCHAR" property="productcode" />
+    <result column="applyDate" jdbcType="TIMESTAMP" property="applydate" />
+    <result column="startDate" jdbcType="TIMESTAMP" property="startdate" />
+    <result column="endDate" jdbcType="TIMESTAMP" property="enddate" />
+    <result column="provinceComCode" jdbcType="VARCHAR" property="provincecomcode" />
+    <result column="branchComCode" jdbcType="VARCHAR" property="branchcomcode" />
+    <result column="businessComCode" jdbcType="VARCHAR" property="businesscomcode" />
+    <result column="agentCode" jdbcType="VARCHAR" property="agentcode" />
+    <result column="holderType" jdbcType="VARCHAR" property="holdertype" />
+    <result column="holderName" jdbcType="VARCHAR" property="holdername" />
+    <result column="holderCertiType" jdbcType="VARCHAR" property="holdercertitype" />
+    <result column="holderCertiNo" jdbcType="VARCHAR" property="holdercertino" />
+    <result column="holderSex" jdbcType="VARCHAR" property="holdersex" />
+    <result column="holderMobile" jdbcType="VARCHAR" property="holdermobile" />
+    <result column="holderEmail" jdbcType="VARCHAR" property="holderemail" />
+    <result column="holderRelaToInsured" jdbcType="VARCHAR" property="holderrelatoinsured" />
+    <result column="holderAddr" jdbcType="VARCHAR" property="holderaddr" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="status" jdbcType="CHAR" property="status" />
+    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    insorder_id, session_id, productCode, applyDate, startDate, endDate, provinceComCode, 
+    branchComCode, businessComCode, agentCode, holderType, holderName, holderCertiType, 
+    holderCertiNo, holderSex, holderMobile, holderEmail, holderRelaToInsured, holderAddr, 
+    createtime, updatetime, status, order_id
+  </sql>
+  <select id="selectByExample" parameterType="com.shie.mobile.entity.InsorderExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from insorder
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from insorder
+    where insorder_id = #{insorderId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from insorder
+    where insorder_id = #{insorderId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.shie.mobile.entity.Insorder">
+    <selectKey keyProperty="insorderId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into insorder (session_id, productCode, applyDate, 
+      startDate, endDate, provinceComCode, 
+      branchComCode, businessComCode, agentCode, 
+      holderType, holderName, holderCertiType, 
+      holderCertiNo, holderSex, holderMobile, 
+      holderEmail, holderRelaToInsured, holderAddr, 
+      createtime, updatetime, status, 
+      order_id)
+    values (#{sessionId,jdbcType=VARCHAR}, #{productcode,jdbcType=VARCHAR}, #{applydate,jdbcType=TIMESTAMP}, 
+      #{startdate,jdbcType=TIMESTAMP}, #{enddate,jdbcType=TIMESTAMP}, #{provincecomcode,jdbcType=VARCHAR}, 
+      #{branchcomcode,jdbcType=VARCHAR}, #{businesscomcode,jdbcType=VARCHAR}, #{agentcode,jdbcType=VARCHAR}, 
+      #{holdertype,jdbcType=VARCHAR}, #{holdername,jdbcType=VARCHAR}, #{holdercertitype,jdbcType=VARCHAR}, 
+      #{holdercertino,jdbcType=VARCHAR}, #{holdersex,jdbcType=VARCHAR}, #{holdermobile,jdbcType=VARCHAR}, 
+      #{holderemail,jdbcType=VARCHAR}, #{holderrelatoinsured,jdbcType=VARCHAR}, #{holderaddr,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}, #{status,jdbcType=CHAR}, 
+      #{orderId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shie.mobile.entity.Insorder">
+    <selectKey keyProperty="insorderId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into insorder
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sessionId != null">
+        session_id,
+      </if>
+      <if test="productcode != null">
+        productCode,
+      </if>
+      <if test="applydate != null">
+        applyDate,
+      </if>
+      <if test="startdate != null">
+        startDate,
+      </if>
+      <if test="enddate != null">
+        endDate,
+      </if>
+      <if test="provincecomcode != null">
+        provinceComCode,
+      </if>
+      <if test="branchcomcode != null">
+        branchComCode,
+      </if>
+      <if test="businesscomcode != null">
+        businessComCode,
+      </if>
+      <if test="agentcode != null">
+        agentCode,
+      </if>
+      <if test="holdertype != null">
+        holderType,
+      </if>
+      <if test="holdername != null">
+        holderName,
+      </if>
+      <if test="holdercertitype != null">
+        holderCertiType,
+      </if>
+      <if test="holdercertino != null">
+        holderCertiNo,
+      </if>
+      <if test="holdersex != null">
+        holderSex,
+      </if>
+      <if test="holdermobile != null">
+        holderMobile,
+      </if>
+      <if test="holderemail != null">
+        holderEmail,
+      </if>
+      <if test="holderrelatoinsured != null">
+        holderRelaToInsured,
+      </if>
+      <if test="holderaddr != null">
+        holderAddr,
+      </if>
+      <if test="createtime != null">
+        createtime,
+      </if>
+      <if test="updatetime != null">
+        updatetime,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sessionId != null">
+        #{sessionId,jdbcType=VARCHAR},
+      </if>
+      <if test="productcode != null">
+        #{productcode,jdbcType=VARCHAR},
+      </if>
+      <if test="applydate != null">
+        #{applydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startdate != null">
+        #{startdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enddate != null">
+        #{enddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="provincecomcode != null">
+        #{provincecomcode,jdbcType=VARCHAR},
+      </if>
+      <if test="branchcomcode != null">
+        #{branchcomcode,jdbcType=VARCHAR},
+      </if>
+      <if test="businesscomcode != null">
+        #{businesscomcode,jdbcType=VARCHAR},
+      </if>
+      <if test="agentcode != null">
+        #{agentcode,jdbcType=VARCHAR},
+      </if>
+      <if test="holdertype != null">
+        #{holdertype,jdbcType=VARCHAR},
+      </if>
+      <if test="holdername != null">
+        #{holdername,jdbcType=VARCHAR},
+      </if>
+      <if test="holdercertitype != null">
+        #{holdercertitype,jdbcType=VARCHAR},
+      </if>
+      <if test="holdercertino != null">
+        #{holdercertino,jdbcType=VARCHAR},
+      </if>
+      <if test="holdersex != null">
+        #{holdersex,jdbcType=VARCHAR},
+      </if>
+      <if test="holdermobile != null">
+        #{holdermobile,jdbcType=VARCHAR},
+      </if>
+      <if test="holderemail != null">
+        #{holderemail,jdbcType=VARCHAR},
+      </if>
+      <if test="holderrelatoinsured != null">
+        #{holderrelatoinsured,jdbcType=VARCHAR},
+      </if>
+      <if test="holderaddr != null">
+        #{holderaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shie.mobile.entity.Insorder">
+    update insorder
+    <set>
+      <if test="sessionId != null">
+        session_id = #{sessionId,jdbcType=VARCHAR},
+      </if>
+      <if test="productcode != null">
+        productCode = #{productcode,jdbcType=VARCHAR},
+      </if>
+      <if test="applydate != null">
+        applyDate = #{applydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startdate != null">
+        startDate = #{startdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enddate != null">
+        endDate = #{enddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="provincecomcode != null">
+        provinceComCode = #{provincecomcode,jdbcType=VARCHAR},
+      </if>
+      <if test="branchcomcode != null">
+        branchComCode = #{branchcomcode,jdbcType=VARCHAR},
+      </if>
+      <if test="businesscomcode != null">
+        businessComCode = #{businesscomcode,jdbcType=VARCHAR},
+      </if>
+      <if test="agentcode != null">
+        agentCode = #{agentcode,jdbcType=VARCHAR},
+      </if>
+      <if test="holdertype != null">
+        holderType = #{holdertype,jdbcType=VARCHAR},
+      </if>
+      <if test="holdername != null">
+        holderName = #{holdername,jdbcType=VARCHAR},
+      </if>
+      <if test="holdercertitype != null">
+        holderCertiType = #{holdercertitype,jdbcType=VARCHAR},
+      </if>
+      <if test="holdercertino != null">
+        holderCertiNo = #{holdercertino,jdbcType=VARCHAR},
+      </if>
+      <if test="holdersex != null">
+        holderSex = #{holdersex,jdbcType=VARCHAR},
+      </if>
+      <if test="holdermobile != null">
+        holderMobile = #{holdermobile,jdbcType=VARCHAR},
+      </if>
+      <if test="holderemail != null">
+        holderEmail = #{holderemail,jdbcType=VARCHAR},
+      </if>
+      <if test="holderrelatoinsured != null">
+        holderRelaToInsured = #{holderrelatoinsured,jdbcType=VARCHAR},
+      </if>
+      <if test="holderaddr != null">
+        holderAddr = #{holderaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=CHAR},
+      </if>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where insorder_id = #{insorderId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shie.mobile.entity.Insorder">
+    update insorder
+    set session_id = #{sessionId,jdbcType=VARCHAR},
+      productCode = #{productcode,jdbcType=VARCHAR},
+      applyDate = #{applydate,jdbcType=TIMESTAMP},
+      startDate = #{startdate,jdbcType=TIMESTAMP},
+      endDate = #{enddate,jdbcType=TIMESTAMP},
+      provinceComCode = #{provincecomcode,jdbcType=VARCHAR},
+      branchComCode = #{branchcomcode,jdbcType=VARCHAR},
+      businessComCode = #{businesscomcode,jdbcType=VARCHAR},
+      agentCode = #{agentcode,jdbcType=VARCHAR},
+      holderType = #{holdertype,jdbcType=VARCHAR},
+      holderName = #{holdername,jdbcType=VARCHAR},
+      holderCertiType = #{holdercertitype,jdbcType=VARCHAR},
+      holderCertiNo = #{holdercertino,jdbcType=VARCHAR},
+      holderSex = #{holdersex,jdbcType=VARCHAR},
+      holderMobile = #{holdermobile,jdbcType=VARCHAR},
+      holderEmail = #{holderemail,jdbcType=VARCHAR},
+      holderRelaToInsured = #{holderrelatoinsured,jdbcType=VARCHAR},
+      holderAddr = #{holderaddr,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=CHAR},
+      order_id = #{orderId,jdbcType=VARCHAR}
+    where insorder_id = #{insorderId,jdbcType=INTEGER}
+  </update>
+</mapper>
