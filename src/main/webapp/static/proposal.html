@@ -49,7 +49,7 @@
 	    	font-size: 15px;
 		}
 		.declare {
-			list-style:none;padding-left: 0px;
+			list-style:none;padding-left: 0px;font-size: 0.9em;
 		}
 		.declare li {
 			margin-top: 15px;
@@ -254,6 +254,14 @@
 				<label>我已经认真阅读以上内容并同意</label>
 				<input id="checkbox" value="agree" type="checkbox" >
 			</div>
+			<div class="mui-input-row" style="margin-left:10px;">
+				<div style="float:left;padding-left:2px;padding-right:5px;">			
+						<input id="veriCode" type="text" placeholder="请填写手机验证码"/>
+				</div>
+			  <div style="float:left;">				
+						<button id="veriCodeBtn" data-loading-text="获取中..." type="button" class="mui-btn mui-btn-blue" style="width:100px;height:40px;float: left;" >获取验证码</button>
+			  </div>
+		  </div>
 			<div style="padding: 1rem; text-align: center;">
 				<button type="button" id="proposalConfirm" class="mui-btn mui-btn-red mui-btn-grey" style="width:200px;height:40px">确认投保</button>
 			</div>
@@ -357,8 +365,8 @@
 					mui.toast('请填写正确的投保人手机号码');
 					return;
 				}
-				if(!isNull(submitObj.propEmail)&&emailValid(submitObj.propEmail)){
-					mui.toast('请填写正确的被保险人邮箱');
+				if(!isNull(submitObj.propEmail)&&emailValid(submitObj.propEmail)==false){
+					mui.toast('请填写正确的投保人邮箱');
 					return;
 				}
 				submitObj.insuredName=document.getElementById("insuredName").value;
@@ -397,12 +405,12 @@
 					mui.toast('请填写正确的被保险人手机号码');
 					return;
 				}
-				if(!isNull(submitObj.insuredEmail)&&emailValid(submitObj.insuredEmail)){
+				if(!isNull(submitObj.insuredEmail)&&emailValid(submitObj.insuredEmail)==false){
 					mui.toast('请填写正确的被保险人邮箱');
 					return;
 				}
 				//mui.alert('已成功提交投保单，将进入在线支付！');
-				mui.ajax('http://192.168.12.105:8080/jzmobile/wechat/proposalSubmit',{
+				/*mui.ajax('http://192.168.12.105:8080/jzmobile/wechat/proposalSubmit',{
 					data:submitObj,
 					dataType:'json',//服务器返回json格式数据
 					type:'post',//HTTP请求类型
@@ -416,6 +424,10 @@
 						mui.alert('已成功提交投保单，将进入在线支付！');
 						console.log(type);
 					}
+				});*/
+				mui.openWindow({
+					url: 'epayment.html',
+					id: 'epayment'
 				});
 			}
 			mui.ready(function(){	
@@ -527,7 +539,18 @@
 						submitProposal();
 					}					
 				}, false);	
-				
+				document.getElementById("veriCodeBtn").addEventListener('tap', function(event) {
+				    var counter=30;
+				    mui(this).button('loading');
+				    var timer=setInterval(function(){		    	
+				    	document.getElementById("veriCodeBtn").innerHTML='('+counter+')';				    
+				    	counter--;
+				    },1000);
+				    setTimeout(function() {
+				    		clearInterval(timer);
+				        mui(this).button('reset');
+				    }.bind(this), counter*1000);
+				});
 			}
 			)
 	</script>

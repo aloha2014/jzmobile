@@ -19,12 +19,18 @@
 			<div style="padding: 1rem 0rem 0.5rem 0rem; text-align: center;font-size: 0.7em;">@2017 上海保险交易所 <span style="color:blue;">隐私权政策</span></span>
 		</nav>
 		<div class="mui-content">
-			<p>投保成功！保单号码为<span id="policyNo"/></p>
+			<p style="margin-top:20px;text-align: center;font-size: medium;color:blue">投保成功！保单号码为<span id="policyNo"/></p>
 		</div>
 		<script>
 			mui.init();		
 			mui.ready(function(){	
 				document.getElementById("policyNo").innerHTML="PEQ0100217000000703";
+				mui.back = function (){					
+					mui.openWindow({
+						url: 'index.html',
+						id: 'index'
+					});
+				}
 			})
 		</script>
 		
