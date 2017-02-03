@@ -55,7 +55,7 @@ public class ProposalController {
 	 * @param applicantPhoneNo
 	 * @return
 	 * @throws Exception
-	 */ 
+	 */
 	@RequestMapping(value = "initialize", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResponse initialize(@RequestBody UserInfo userInfo) throws Exception {
