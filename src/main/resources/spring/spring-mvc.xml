@@ -15,17 +15,20 @@
 		    <list>
 		       <value>classpath:db.properties</value>  
 		       <value>classpath:env.properties</value> 
+		       <value>classpath:cache.properties</value> 
 		    </list>
 	    </property>  
 	    <property name="ignoreUnresolvablePlaceholders" value="true"/>  
 	</bean>  
 	<!-- 使用Annotation自动注册Bean,只扫描@Controller -->
-	<context:component-scan base-package="com.shie.mobile.controller,com.shie.mobile.service"		
+	<context:component-scan base-package="com.shie.mobile.controller,com.shie.mobile.service,com.shie.mobile.util"		
 	    use-default-filters="false"><!-- base-package 如果多个，用“,”分隔 -->
 		<context:include-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />
 		<context:include-filter type="annotation"
 			expression="org.springframework.stereotype.Service" />
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Component" />
 		<context:include-filter type="annotation"
 			expression="org.springframework.web.bind.annotation.ControllerAdvice" />
 	</context:component-scan>
@@ -33,6 +36,7 @@
 	<mvc:annotation-driven />
 	<import resource="spring-datasource.xml" />
 	<import resource="spring-mybatis.xml" />
+	<import resource="spring-cache.xml" />
 	
 	<bean
 		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">

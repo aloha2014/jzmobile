@@ -5,7 +5,7 @@ import com.shie.mobile.exception.ApplicationException;
 
 public interface SessionMgmtService {
 	/**
-	 * 创建用户会话信息
+	 * 创建用户会话信息到缓存
 	 * 
 	 * @param userInfo
 	 * @return User's session info
@@ -13,31 +13,29 @@ public interface SessionMgmtService {
 	public UserInfo createSession(UserInfo userInfo) throws ApplicationException;
 
 	/**
-	 * 获取用户会话信息
+	 * 获取用户会话信息到缓存
 	 * 
 	 * @param sessionId
 	 * @return
 	 */
 	public UserInfo getSession(String sessionId);
 	
-	
+		
 	/**
-	 * 更新用户会话信息
+	 * 创建用户信息到数据库
 	 * 
 	 * @param sessionId
 	 * @return
 	 */
-	public UserInfo updateSession(UserInfo userInfo) throws ApplicationException;
+	public UserInfo createUserInfo(UserInfo userInfo) throws ApplicationException;
 	
 	/***
 	 * 用户手机验证码校验
 	 * 
 	 * @param userInfo
 	 *            用户信息
-	 * @param phoneNo
-	 *            用户录入的手机验证码
 	 * @return True:匹配成功 False:失败
 	 * @throws Exception
 	 */
-	public boolean checkVericationCode(UserInfo userInfo, String phoneNo) throws ApplicationException;
+	public boolean checkVericationCode(UserInfo userInfo) throws ApplicationException;
 }

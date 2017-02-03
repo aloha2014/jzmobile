@@ -7,6 +7,9 @@ public enum CodeDefinition {
 	GEN_SESSION_CODE_ERR("03", "创建用户会话信息处理失败"),
 	UPDATE_SESSION_CODE_ERR("04", "更新用户会话信息处理失败"),
 	CALC_PREMIUM_ERR("05", "计算保费信息失败"),	
+	SESSION_PHONE_NO_ERR("06", "手机号码无效"),
+	SESSION_VERIFICATION_NO_EMPTY("07", "手机验证码为空"),
+//	CALC_PREMIUM_ERR("07", "计算保费信息失败"),
 	GENERAL_SYS_ERR("99", "系统处理失败");
 	
 	private String code;

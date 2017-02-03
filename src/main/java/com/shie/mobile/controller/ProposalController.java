@@ -23,6 +23,7 @@ import com.shie.mobile.dto.web.UserInfo;
 import com.shie.mobile.exception.ApplicationException;
 import com.shie.mobile.service.CodeGenerationService;
 import com.shie.mobile.util.CodeDefinition;
+import com.shie.mobile.util.PhoneValidator;
 import com.shie.mobile.service.NotificationService;
 import com.shie.mobile.service.ProposalService;
 import com.shie.mobile.service.SessionMgmtService;
@@ -81,7 +82,7 @@ public class ProposalController {
 	@ResponseBody
 	public CommonResponse calcuatePremium(@RequestBody ProposalRequest proposalRequest) throws Exception {
 		try {
-			confirmUserInfo(proposalRequest.getUserInfo());
+			confirmSessionInfo(proposalRequest.getUserInfo());
 		} catch (ApplicationException e) {
 			logger.error("check user session failed", e);
 			return new CommonResponse(e.getErrorCode());
@@ -109,7 +110,10 @@ public class ProposalController {
 	@ResponseBody
 	public CommonResponse getVerificationCode(@RequestBody UserInfo userInfo) throws Exception {
 		try {
-			confirmUserInfo(userInfo);
+			confirmSessionInfo(userInfo);
+			if(!PhoneValidator.isPhoneCallNum(userInfo.getMobileNo())){
+				throw new ApplicationException("手机号码无效", CodeDefinition.SESSION_PHONE_NO_ERR);
+			}
 		} catch (ApplicationException e) {
 			logger.error("check user session failed", e);
 			return new CommonResponse(e.getErrorCode());
@@ -121,7 +125,8 @@ public class ProposalController {
 		} else {
 			userInfo.setVerfiCode(verificationCode);
 			try {
-				userInfo = sessionMgmtService.updateSession(userInfo);
+				//创建用户会话信息到数据库
+				userInfo = sessionMgmtService.createUserInfo(userInfo);
 				// 短信通知用户
 				notificationService.sendVerificationCode(userInfo.getMobileNo());
 				// 不返回后台生成的验证码给前台
@@ -186,7 +191,7 @@ public class ProposalController {
 	 * 
 	 * @throws Exception
 	 */
-	private void confirmUserInfo(UserInfo userInfo) throws ApplicationException {
+	private void confirmSessionInfo(UserInfo userInfo) throws ApplicationException {
 		if (userInfo == null) {
 			throw new ApplicationException("用户会话数据为空", CodeDefinition.SESSION_EMPTY_ERR);
 		}

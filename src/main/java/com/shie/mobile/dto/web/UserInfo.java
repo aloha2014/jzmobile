@@ -1,6 +1,12 @@
 package com.shie.mobile.dto.web;
 
-public class UserInfo {
+import java.io.Serializable;
+
+public class UserInfo implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6719096898782236956L;
 	private String sessionId;
 	private String ipAddress;
 	private String mobileNo;
