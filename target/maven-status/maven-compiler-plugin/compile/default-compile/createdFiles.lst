@@ -2,6 +2,7 @@ com\shie\mobile\entity\Sessionmgmt.class
 com\shie\mobile\dao\SessionmgmtMapper.class
 com\shie\mobile\dto\openapi\CalcPremiumOutput.class
 com\shie\mobile\service\ProposalService.class
+com\shie\mobile\util\DateUtil.class
 com\shie\mobile\controller\ProposalController.class
 com\shie\mobile\service\impl\CodeGenerationServiceImpl.class
 com\shie\mobile\entity\SessionmgmtExample$GeneratedCriteria.class
@@ -14,10 +15,13 @@ com\shie\mobile\dto\openapi\Clause.class
 com\shie\mobile\dto\openapi\UndwrtProposalInput.class
 com\shie\mobile\dto\openapi\PolicyHolder.class
 com\shie\mobile\dto\openapi\CalcPremiumInputDetail.class
+com\shie\mobile\util\RedisCacheUtil.class
 com\shie\mobile\dto\web\PolicyInfo.class
 com\shie\mobile\entity\InsorderdetailExample$Criterion.class
+com\shie\mobile\util\BizConstant.class
 com\shie\mobile\entity\InsorderpayExample$Criteria.class
 com\shie\mobile\entity\InsorderdetailExample$GeneratedCriteria.class
+com\shie\mobile\util\PhoneValidator.class
 com\shie\mobile\entity\SessionmgmtExample$Criterion.class
 com\shie\mobile\dao\InsorderMapper.class
 com\shie\mobile\dto\openapi\PolicyGenerationOutput.class
@@ -28,6 +32,7 @@ com\shie\mobile\entity\InsorderExample$Criteria.class
 com\shie\mobile\entity\SessionmgmtExample$Criteria.class
 com\shie\mobile\dao\InsorderdetailMapper.class
 com\shie\mobile\entity\InsorderdetailExample$Criteria.class
+com\shie\mobile\util\RedisCacheUtil$1.class
 com\shie\mobile\dto\web\UserInfo.class
 com\shie\mobile\service\impl\NotificationServiceImpl.class
 com\shie\mobile\exception\ApplicationException.class
