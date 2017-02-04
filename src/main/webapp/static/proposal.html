@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title></title>
+		<title>城乡居民住宅地震巨灾保险</title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="css/mui.min.css" rel="stylesheet" />
 		<link href="css/mui.picker.min.css" rel="stylesheet" />
@@ -255,11 +255,11 @@
 				<input id="checkbox" value="agree" type="checkbox" >
 			</div>
 			<div class="mui-input-row" style="margin-left:10px;">
-				<div style="float:left;padding-left:2px;padding-right:5px;">			
-						<input id="veriCode" type="text" placeholder="请填写手机验证码"/>
+				<div style="float:left;padding-left:2px;padding-right:5px;width:200px">			
+						<input id="verifyCode" type="text" placeholder="请填写手机验证码" style="font-size:0.7em"/>
 				</div>
 			  <div style="float:left;">				
-						<button id="veriCodeBtn" data-loading-text="获取中..." type="button" class="mui-btn mui-btn-blue" style="width:100px;height:40px;float: left;" >获取验证码</button>
+						<button id="verifyCodeBtn" data-loading-text="获取中..." type="button" class="mui-btn mui-btn-blue" style="width:100px;height:40px;float: left;" >获取验证码</button>
 			  </div>
 		  </div>
 			<div style="padding: 1rem; text-align: center;">
@@ -309,7 +309,7 @@
 				submitObj.catalogValue=document.getElementById("catalogValue").innerHTML;
 				submitObj.structureValue=document.getElementById("structureValue").innerHTML;
 				submitObj.repairFlag=mui('#gender')[0].classList.contains('mui-active')?'1':'0';
-				submitObj.amount=document.getElementById("amount").value;
+				submitObj.amount=document.getElementById("amount").value;				
 				if (isNull(submitObj.cityValue)){
 					mui.toast('请选择房屋所在城市');
 					return;
@@ -407,6 +407,11 @@
 				}
 				if(!isNull(submitObj.insuredEmail)&&emailValid(submitObj.insuredEmail)==false){
 					mui.toast('请填写正确的被保险人邮箱');
+					return;
+				}
+				submitObj.verifyCode=document.getElementById("verifyCode").value;
+				if(isNull(submitObj.verifyCode)){
+					mui.toast('请输入投保人手机验证码');
 					return;
 				}
 				//mui.alert('已成功提交投保单，将进入在线支付！');
@@ -539,11 +544,23 @@
 						submitProposal();
 					}					
 				}, false);	
-				document.getElementById("veriCodeBtn").addEventListener('tap', function(event) {
+				document.getElementById("verifyCodeBtn").addEventListener('tap', function(event) {
+					var phoneNo=document.getElementById("propPhone").value;
+					if(isNull(phoneNo)){
+						mui.toast('请填写投保人手机号码');
+						return;
+					}
+					if(!phoneNoValid(phoneNo)){
+						mui.toast('请填写正确的投保人手机号码');
+						return;
+					}
 				    var counter=30;
 				    mui(this).button('loading');
+				    setTimeout(function() {
+				   		 mui.toast('验证码已短信发送投保人手机:'+phoneNo);
+				    },1000);
 				    var timer=setInterval(function(){		    	
-				    	document.getElementById("veriCodeBtn").innerHTML='('+counter+')';				    
+				    	document.getElementById("verifyCodeBtn").innerHTML='('+counter+')';				    
 				    	counter--;
 				    },1000);
 				    setTimeout(function() {

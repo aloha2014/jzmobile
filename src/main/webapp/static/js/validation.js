@@ -53,7 +53,7 @@ var phoneNoValid = function(data){
 }
 
 var emailValid = function(data){
-	var reg = "/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/";
+	var reg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
   	if(!reg.test(data)) {
   		return false;
     }else{
